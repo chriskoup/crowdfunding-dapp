@@ -8,7 +8,7 @@ import RefundPanel from "./components/RefundPanel";
 import OwnerActions from "./components/OwnerActions";
 import CampaignDetails from "./components/CampaignDetails";
 
-const Home = () => {
+const Home = ({ account }) =>  {
   const [view, setView] = useState("active");
 
   return (
