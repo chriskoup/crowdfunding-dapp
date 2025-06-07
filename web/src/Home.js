@@ -30,7 +30,12 @@ const Home = () => {
       {view === "completed" && <CompletedCampaigns />}
       {view === "cancelled" && <CancelledCampaigns />}
       {view === "refund" && <RefundPanel />}
-      {view === "owner" && <OwnerActions />}
+      {view === "owner" && (
+  <div className="space-y-4">
+    <OwnerActions />
+    <WithdrawFees account={account} />
+  </div>
+)}
       {view === "details" && <CampaignDetails />}
     </div>
   );
