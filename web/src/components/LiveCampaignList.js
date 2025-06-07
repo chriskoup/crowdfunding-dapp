@@ -63,6 +63,7 @@ const LiveCampaignList = () => {
 
       {campaigns.map((c) => (
         <div key={c.id} className="border p-4 rounded mb-4 bg-white shadow">
+          <p><strong>ID:</strong> {c.id}</p>
           <p><strong>Τίτλος:</strong> {c.title}</p>
           <p><strong>Δημιουργός:</strong> {c.entrepreneur}</p>
           <p><strong>Τιμή μετοχής:</strong> {c.pledgeCost} Wei</p>
