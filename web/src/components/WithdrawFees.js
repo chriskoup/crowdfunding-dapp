@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import contractInstance from "../web3";
+import contract from "../web3";
 
 const WithdrawFees = ({ account }) => {
   const [status, setStatus] = useState("");
