@@ -56,6 +56,27 @@ const LiveCampaignList = () => {
     }
   };
 
+  const cancelCampaign = async (id) => {
+    try {
+      setStatus("Ακύρωση καμπάνιας...");
+      await contract.methods.cancelCampaign(id).send({ from: account });
+      setStatus("✅ Η καμπάνια ακυρώθηκε.");
+
+      // Ανανέωσε τη λίστα καμπανιών
+      const ids = await contract.methods.getActiveCampaigns().call();
+      const campaignDetails = await Promise.all(
+        ids.map(async (id) => {
+          const c = await contract.methods.campaigns(id).call();
+          const shares = await contract.methods.getBackerShares(id, account).call();
+          return { ...c, shares, id };
+        })
+      );
+      setCampaigns(campaignDetails);
+    } catch (err) {
+      setStatus("❌ Σφάλμα: " + err.message);
+    }
+  };
+
   return (
     <div className="mt-6">
       <h2 className="text-xl font-bold mb-2">Ενεργές Καμπάνιες</h2>
@@ -83,6 +104,15 @@ const LiveCampaignList = () => {
           >
             Υποστήριξε
           </button>
+
+          {account.toLowerCase() === c.entrepreneur.toLowerCase() && (
+            <button
+              onClick={() => cancelCampaign(c.id)}
+              className="bg-red-600 text-white px-4 py-2 mt-2 ml-2 rounded hover:bg-red-700"
+            >
+              Ακύρωση
+            </button>
+          )}
         </div>
       ))}
 
